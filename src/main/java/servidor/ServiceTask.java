@@ -11,6 +11,8 @@ import java.net.SocketTimeoutException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+
 import org.fp.dam.naipes.blackjack.BlackjackPedirException;
 import org.fp.dam.naipes.blackjack.BlackjackPlantarseException;
 import org.fp.dam.naipes.blackjack.BlackjackRepartirException;
@@ -30,6 +32,8 @@ public class ServiceTask implements Runnable {
 
 	@Override
 	public void run() {
+		
+		long startTime = System.currentTimeMillis();
 
 		try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()))) {
@@ -45,6 +49,10 @@ public class ServiceTask implements Runnable {
 		} catch (IOException e) {
 			System.err.println("[!] ERROR: " + e.getLocalizedMessage() + "(" + socket.getInetAddress() + ")");
 		}
+
+        long endTime = System.currentTimeMillis();
+        long responseTime = endTime - startTime;
+        System.out.println("[Tiempo de respuesta: " + responseTime + " ms]\n");
 	}
 
 	
@@ -54,13 +62,7 @@ public class ServiceTask implements Runnable {
 	        String hash = partidas.crear();
 	        enviar(out, "OK#" + hash);
 	    }
-		/*
-		 * System.out.println(socket.getKeepAlive()); 
-		 * Comprobacion para el cierre de la
-		 * conexión despues de la peticion nueva
-		 * apartado 1a
-		 */
-
+	    
 	    else if (peticion.startsWith("repartir#")) {
 	        try {
 	            String hash = peticion.split("#")[1];
