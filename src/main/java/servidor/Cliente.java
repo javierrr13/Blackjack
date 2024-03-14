@@ -32,10 +32,7 @@ public class Cliente {
                 System.out.println(serverResponse);
                 if(serverResponse.equals("SE HA DESCONECTADO DEL SERVIDOR"))
                 	fin=false;
-                	socket.close();
-                	userInput.close();
-                	out.close();
-                	in.close();
+                	
             }
         } catch (IOException e) {
             e.printStackTrace();

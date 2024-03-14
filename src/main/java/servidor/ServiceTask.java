@@ -26,7 +26,7 @@ public class ServiceTask implements Runnable {
 	public ServiceTask(Socket socket, Handler p) throws SocketException {;
 		this.socket = socket;
 		this.partidas = p;
-		SimpleDateFormat form = new SimpleDateFormat("HH:mm:ss");
+		SimpleDateFormat form = new SimpleDateFormat("dd/MM/yyyy | HH:mm:ss");
 		logtime = form.format(new Date());
 	}
 
